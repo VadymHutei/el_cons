@@ -80,7 +80,7 @@ def get_colour(count: int) -> str:
     return colour
 
 def get_table(data: dict) -> list[list[str]]:
-    headers = [f'{i+1:02d}' for i in range(24)]
+    headers = [f'{i:02d}' for i in range(24)]
     headers.insert(0, 'День')
     table = [headers]
 
