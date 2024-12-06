@@ -79,23 +79,37 @@ def get_colour(count: int) -> str:
 
     return colour
 
+def total_output(total: float):
+    if total == 100:
+        colour = BRIGHT_GREEN
+    elif total > 70:
+        colour = BRIGHT_YELLOW
+    else:
+        colour = BRIGHT_RED
+    return f'{colour}{total:.0f}%{RESET}'
+
 def get_table(data: dict) -> list[list[str]]:
     headers = [f'{i:02d}' for i in range(24)]
+    headers.append('Total')
     headers.insert(0, 'День')
     table = [headers]
+    total_minutes = 24 * 60
 
     for day_name, day_data in data.items():
         day = [day_name]
+        minutes_count = 0
         for i in range(24):
             count = day_data.get(i, 0)
+            minutes_count += count
             day.append(f'{get_colour(count)}{count:^4d}{RESET}')
+        day.append(total_output(minutes_count / total_minutes * 100))
 
         table.append(day)
 
     return table
 
 if __name__ == '__main__':
-    file_name = '20240701_12'
+    file_name = 'data'
     data = get_data(file_name)
     table = get_table(data)
     print(tabulate(table, headers='firstrow', tablefmt='fancy_grid'))
