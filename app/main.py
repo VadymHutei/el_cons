@@ -82,6 +82,8 @@ def get_colour(count: int) -> str:
 def total_output(total: float):
     if total == 100:
         colour = BRIGHT_GREEN
+    elif total > 90:
+        colour = BRIGHT_CYAN
     elif total > 70:
         colour = BRIGHT_YELLOW
     else:
@@ -90,8 +92,8 @@ def total_output(total: float):
 
 def get_table(data: dict) -> list[list[str]]:
     headers = [f'{i:02d}' for i in range(24)]
-    headers.append('Total')
-    headers.insert(0, 'День')
+    headers.append('Всього')
+    headers.insert(0, 'День\\Година')
     table = [headers]
     total_minutes = 24 * 60
 
